@@ -1,0 +1,36 @@
+Задание 2
+
+1. Создать новую группу `ideal` для работы над проектом
+
+groupadd ideal
+cat /etc/group
+
+2. Добавить себя в группу `ideal`
+
+whoami
+usermod -a -G ideal root
+groups root
+
+3. Создать пользователя для коллеги. Его имя будет `maxim`, рабочая директория `/home/maxim_files`, среда по-умолчанию: `bash`
+4. Необходимо добавить `maxim` в группу `ideal`
+
+useradd -m -d /home/maxim_files -s /bin/bash -G ideal maxim
+cat etc/passwd | grep maxim
+
+5. Создать папку(и) `/var/ideal/source`
+
+mkdir -p /var/ideal/source
+
+6. Создать файл `/var/ideal/source/README.md` с содержимым `# Ideal Project`
+
+echo "# Ideal Project" > var/ideal/source/README.md
+
+7. Сделать, чтобы группа `ideal` могла читать и редактировать все файлы в папке `/var/ideal`. Никто не может исполнять, остальные - только читать.
+
+ls -Rl var/ideal/
+chown -R :ideal var/ideal
+chmod -R 664 var/ideal
+
+8. Проверить разрешения внутри всех подпапок `/var/ideal`
+
+ls -Rl var/ideal/
